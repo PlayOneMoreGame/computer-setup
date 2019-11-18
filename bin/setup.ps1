@@ -63,9 +63,9 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     Disable-MMAgent -mc
 
     # Enable Windows features for Docker/Linux/etc.
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-    Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
+    Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName Microsoft-Hyper-V -All
+    Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName Microsoft-Windows-Subsystem-Linux
+    Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName VirtualMachinePlatform
 }
 else {
     # Re-run this script with administrative permissions. Since the script may have been
