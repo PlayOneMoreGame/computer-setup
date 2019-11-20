@@ -90,6 +90,12 @@ else {
     # This code runs with User permissions
     ################################################
 
+    # Start growl
+    & "C:\Program Files (x86)\Growl for Windows\Growl.exe"
+
+    # Register OMG application and message types with Growl
+    & "C:\Program Files (x86)\Growl for Windows\growlnotify.com" /r:Debug,Info,Warn,Error,Fatal /a:OMG "Register OMG"
+
     # When using git-bash we need to set the HOME directory variable
     if ([Environment]::GetEnvironmentVariable('HOME') -eq $null) {
         [Environment]::SetEnvironmentVariable('HOME', $Env:UserProfile, [EnvironmentVariableTarget]::User)
