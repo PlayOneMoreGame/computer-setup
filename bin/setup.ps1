@@ -50,6 +50,9 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     # This code runs with administrative permissions
     ################################################
 
+    # Install Chocolatey
+    iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
     # Install required tools
     choco install -y 7zip
     choco install -y ConEmu
