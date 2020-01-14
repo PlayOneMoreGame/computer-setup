@@ -39,10 +39,13 @@ We use the "Nix" package manager, but it does not work in WSL version 1 because 
 However, WSL version 2 does work, but the official release date is still in the future as of this writing, so:
 
 1. Subscribe to the Windows Insider Program
-2. Get on the Fast Ring
-3. Update Windows
-4. Install WSL
-5. Set the version number: `wsl --set-default <IMAGE-NAME> 2`
+    * With your personal Microsoft Account with the [Online Insider Enroll](https://insider.windows.com/en-us/) or
+    * In an automated way by performing an [Offline Insider Enroll](https://github.com/whatever127/offlineinsiderenroll)
+1. Get on the Fast Ring
+1. Update Windows
+1. Install the [Ubuntu WSL Distribution](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
+1. Set the default WSL version number `wsl --set-default-version 2`
+1. Set the WSL version number for Ubuntu: `wsl --set-version ubuntu 2`
 
 # Running GUI applications in WSL
 
