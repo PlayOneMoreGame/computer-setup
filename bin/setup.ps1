@@ -69,6 +69,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y ripgrep
     choco install -y shellcheck
     choco install -y sysinternals
+    choco install -y unity-hub
     choco install -y vcxsrv
     choco install -y vscode
     choco install -y winmerge
