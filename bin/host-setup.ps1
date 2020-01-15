@@ -14,9 +14,9 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     net user administrator $AdminPasswd
 
     # Setup user account
-    New-LocalUser -Name $UserName -NoPassword
-    Add-LocalGroupMember -Group 'Administrators' -Member $UserName
-    Add-LocalGroupMember -Group 'Users' -Member $UserName
+    New-LocalUser -Name $UserName -NoPassword -ErrorAction SilentlyContinue
+    Add-LocalGroupMember -Group 'Administrators' -Member $UserName -ErrorAction SilentlyContinue
+    Add-LocalGroupMember -Group 'Users' -Member $UserName -ErrorAction SilentlyContinue
 
     # Set COMPUTERNAME
     $ComputerName = "$UserName-PC"
