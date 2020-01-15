@@ -2,21 +2,35 @@
 
 This public repository contains the scripts necessary to bootstrap a computer to the point where it can download private repositories from Github that perform the rest of the computer setup process.
 
-## Windows
+## New Desktop PC Setup
 
-To install, run one of the followings commands:
+Our Desktop PCs come imaged with a single administrator user (`Jamie`) and need to first be configured before attempting to setup user land in the next section.
 
-````cmd
-"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/setup.ps1'))"
-````
+1. Perform the initial setup by running one of the following commands
+    ````cmd
+    "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/host-setup.ps1'))"
+    ````
 
-````powershell
-iwr https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/setup.ps1 -UseBasicParsing | iex
-````
+    ````powershell
+    iwr https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/host-setup.ps1 -UseBasicParsing | iex
+    ````
+1. Reboot the machine
+
+## New Windows User Setup
+
+1. Login to Windows with the desired user
+1. Run one of the following commands
+    ````cmd
+    "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/setup.ps1'))"
+    ````
+
+    ````powershell
+    iwr https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/setup.ps1 -UseBasicParsing | iex
+    ````
 
 If you're planning on using Windows Subsystem for Linux (WSL), and you desire to run X-Windows applications, you'll want to copy `./files/vcxsrv-setup` into your WSL drive and link it to your shell configuration:
 
-````
+````bash
     # If this shell is WSL then configure VcXSrv
     if [[ $(uname -r) =~ "icrosoft" ]]; then
         source $HOME/bin/vcxsrv-setup
@@ -41,7 +55,7 @@ However, WSL version 2 does work, but the official release date is still in the 
 1. Subscribe to the Windows Insider Program
     * With your personal Microsoft Account with the [Online Insider Enroll](https://insider.windows.com/en-us/) or
     * In an automated way by performing an [Offline Insider Enroll](https://github.com/whatever127/offlineinsiderenroll)
-1. Get on the Fast Ring
+1. Set your Windows Insider update cycle to the 'Slow Ring'
 1. Update Windows
 1. Install the [Ubuntu WSL Distribution](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
 1. Set the default WSL version number `wsl --set-default-version 2`
