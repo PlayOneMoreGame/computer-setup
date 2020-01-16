@@ -15,14 +15,7 @@
 
 
 # Since this script wants to export the DISPLAY variable it must be sourced
-is_sourced() {
-    if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-if ! is_sourced ; then
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     echo >&2 "ERROR: This script must be sourced, for example:"
     echo >&2 "  source $(basename "${BASH_SOURCE[0]}")"
     exit 1
@@ -30,14 +23,7 @@ fi
 
 
 # This script is only intended for Windows Subsystem for Linux
-is_wsl() {
-    if [[ $(uname -r) =~ icrosoft ]]; then
-        return 0
-    else
-        return 1
-    fi
-}
-if ! is_wsl ; then
+if [[ ! $(uname -r) =~ icrosoft ]]; then
     echo >&2 "ERROR: This script is intended to be run in Windows Subsystem for Linux"
     return 1
 fi
@@ -56,9 +42,12 @@ fi
 # Configure display to point to WSL host
 export DISPLAY="$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0"
 
-
 # Create shared .XAuthority file so VcxSrv and WSL both use the same cookie
-export XAUTHORITY="/mnt/c/Users/$USER/.Xauthority"
+WIN_USER_PROFILE="$(cmd.exe /c "<nul set /p=%UserProfile%" 2>/dev/null)"    # C:\Users\Pat
+WSL_USER_PROFILE="$(wslpath -u "$WIN_USER_PROFILE" | tr -d '\r\n')"         # /mnt/c/Users/Pat
+XAUTHORITY="$WSL_USER_PROFILE/.Xauthority"                                  # /mnt/c/Users/Pat/.Xauthority
+WIN_XAUTHORITY="$(wslpath -m "$XAUTHORITY" | tr -d '\r\n')"                 # C:\Users\Pat\.Xauthority
+export XAUTHORITY
 if [[ ! -f "$XAUTHORITY" ]] || ! xauth list "$DISPLAY" 2>/dev/null | grep -q MIT-MAGIC-COOKIE ; then
     rm -f "$XAUTHORITY"
     touch "$XAUTHORITY"
@@ -79,4 +68,11 @@ taskkill.exe -f -im vcxsrv.exe &>/dev/null
 
 # Make sure VcXsrv is running
 # Specifically, DO NOT USE -ac (disable access control)
-"$VCXSRV_EXE" -multiwindow -clipboard -wgl -auth 'C:\Users\pat\.Xauthority' </dev/null &>/dev/null & disown
+"$VCXSRV_EXE" -multiwindow -clipboard -wgl -auth "$WIN_XAUTHORITY" </dev/null &>/dev/null & disown
+
+
+WIN_USER_PROFILE=
+WSL_USER_PROFILE=
+WIN_XAUTHORITY=
+VCXSRV_DIR=
+VCXSRV_EXE=
