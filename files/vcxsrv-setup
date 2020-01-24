@@ -29,6 +29,14 @@ if [[ ! $(uname -r) =~ icrosoft ]]; then
 fi
 
 
+# Find cmd.exe
+SYS32DIR="/mnt/c/Windows/System32"
+if [[ ! -x "$SYS32DIR/cmd.exe" ]]; then
+    echo >&2 "ERROR: Unable to find cmd.exe in '$SYS32DIR'"
+    return 1
+fi
+
+
 # Verify VcXsrv is installed
 VCXSRV_DIR="/mnt/c/Program Files/VcXsrv"
 VCXSRV_EXE="$VCXSRV_DIR/vcxsrv.exe"
@@ -43,7 +51,7 @@ fi
 export DISPLAY="$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0"
 
 # Create shared .XAuthority file so VcxSrv and WSL both use the same cookie
-WIN_USER_PROFILE="$(cmd.exe /c "<nul set /p=%UserProfile%" 2>/dev/null)"    # C:\Users\Pat
+WIN_USER_PROFILE="$("$SYS32DIR/cmd.exe" /c "<nul set /p=%UserProfile%" 2>/dev/null)"    # C:\Users\Pat
 WSL_USER_PROFILE="$(wslpath -u "$WIN_USER_PROFILE" | tr -d '\r\n')"         # /mnt/c/Users/Pat
 XAUTHORITY="$WSL_USER_PROFILE/.Xauthority"                                  # /mnt/c/Users/Pat/.Xauthority
 WIN_XAUTHORITY="$(wslpath -m "$XAUTHORITY" | tr -d '\r\n')"                 # C:\Users\Pat\.Xauthority
@@ -63,7 +71,7 @@ echo "$(hostname -I)" | tee "$VCXSRV_DIR/X0.hosts" >/dev/null
 
 
 # Configuration change requires we restart VcXsrv
-taskkill.exe -f -im vcxsrv.exe &>/dev/null
+"$SYS32DIR/taskkill.exe" -f -im vcxsrv.exe &>/dev/null
 
 
 # Make sure VcXsrv is running
@@ -76,3 +84,4 @@ WSL_USER_PROFILE=
 WIN_XAUTHORITY=
 VCXSRV_DIR=
 VCXSRV_EXE=
+SYS32DIR=
