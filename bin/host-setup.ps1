@@ -1,8 +1,17 @@
 $WindowsId = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 $WindowsPrincipal = new-object System.Security.Principal.WindowsPrincipal($WindowsId)
 if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    # Read input from prompt
-    $AdminPasswd = Read-Host -Prompt 'Administrator account password'
+    # Read input from prompt, hiding input
+    $AdminPasswd = Read-Host -Prompt 'Administrator account password' -AsSecureString
+    $AdminPasswd = [System.Net.NetworkCredential]::new("", $AdminPasswd).Password
+    $AdminPasswd2 = Read-Host -Prompt 'Administrator password again' -AsSecureString
+    $AdminPasswd2 = [System.Net.NetworkCredential]::new("", $AdminPasswd2).Password
+    if ($AdminPasswd -ne $AdminPasswd2) {
+        Write-Host "ERROR: Passwords do not match"
+        exit 1
+    }
+
+    # Read user account to create
     $UserName = Read-Host -Prompt 'User account name'
 
     ################################################
