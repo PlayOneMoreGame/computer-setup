@@ -28,14 +28,9 @@ Our Desktop PCs come imaged with a single administrator user (`Jamie`) and need 
     iwr https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/setup.ps1 -UseBasicParsing | iex
     ````
 
-If you're planning on using Windows Subsystem for Linux (WSL), and you desire to run X-Windows applications, you'll want to copy `./files/vcxsrv-setup` into your WSL drive and link it to your shell configuration:
+## Post-installation
 
-````bash
-    # If this shell is WSL then configure VcXSrv
-    if [[ $(uname -r) =~ "icrosoft" ]]; then
-        source $HOME/bin/vcxsrv-setup
-    fi
-````
+We recommend configuring your computer using the [PlayOneMoreGame/dotfiles](https://github.com/PlayOneMoreGame/dotfiles) repository, which configures, among other things, sane defaults for bash across Windows/WSL/Mac/Linux, and allows for running X-Windows (GUI) programs from WSL.
 
 ### Windows Issues
 
@@ -61,13 +56,3 @@ However, WSL version 2 does work, but the official release date is still in the 
 1. Set the default WSL version number `wsl --set-default-version 2`
 1. Set the WSL version number for Ubuntu: `wsl --set-version ubuntu 2`
 
-# Running GUI applications in WSL
-
-If you want to run GUI applications (e.g. "meld", a visual diff application) from within WSL2, you'll need to run an X-Windows server like VcXSrv on Windows to accept display commands, which is installed by the `./bin/setup.ps1` script in this repository. The easy way to run VcXSrv is by disabling access control, but that means any rando on the Internet can find a way to exploit your X-Windows, so don't do that.
-
-Instead, run the `./bin/vcxsrv-setup` script from a WSL command-prompt to configure VcXSrv to run on login with the correct security settings, and to configure a secret token shared between WSL GUI applications and VcXSrv via the `$HOME/.Xauthority` file.
-
-Then, update your `.bashrc` file to include the following:
-````
-export DISPLAY="$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0"
-````
