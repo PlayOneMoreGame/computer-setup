@@ -55,6 +55,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
 
     # Install required tools
     choco install -y 7zip
+    choco install -y ag
     choco install -y ConEmu
     choco install -y Firefox
     choco install -y git
@@ -63,6 +64,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y golang
     choco install -y GoogleChrome
     choco install -y gow
+    choco install -y ilspy
     choco install -y growl
     choco install -y keybase
     choco install -y nircmd
