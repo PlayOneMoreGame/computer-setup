@@ -41,7 +41,7 @@ else {
         Write-Host "Download and run from Github"
         Start-Process powershell.exe -Wait -Verb RunAs -ArgumentList (
             # If you're having trouble debugging because the window closes, add "-NoExit" below
-            "-NoProfile -ExecutionPolicy Bypass -Command iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/host-setup.ps1'))"
+            "-NoProfile -ExecutionPolicy Bypass -Command iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/petergiuntoli/computer-setup/master/bin/host-setup.ps1'))"
         );
     }
     else {

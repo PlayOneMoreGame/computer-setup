@@ -55,27 +55,34 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
 
     # Install required tools
     choco install -y 7zip
-    choco install -y ag
-    choco install -y ConEmu
+    # choco install -y ag # prefer ripgrep
+    # choco install -y ConEmu # Replaced with cmder
+    choco install -y cmder
     choco install -y Firefox
     choco install -y git
     choco install -y git-credential-winstore
     choco install -y git-lfs
     choco install -y golang
-    choco install -y GoogleChrome
-    choco install -y gow
+    # choco install -y GoogleChrome # firefox only
+    # choco install -y gow # cmder has git for windows which gives me a lot of this junk
     choco install -y ilspy
     choco install -y growl
     choco install -y keybase
     choco install -y nircmd
-    choco install -y notepad2
+    # choco install -y notepad2 # sublimetext3 instead
+    choco install -y sublimetext3
     choco install -y ripgrep
     choco install -y shellcheck
     choco install -y sysinternals
     choco install -y unity-hub
     choco install -y vcxsrv
     choco install -y vscode
-    choco install -y winmerge
+    # choco install -y winmerge # beyond compare instead
+    choco install -y beyondcompare
+
+    choco install -y keepass
+    choco install -y rapidee
+    choco install -y windirstat
 
     # Windows Subsystem for Linux version 2 (WSL2) connects to VcXSrv
     # via a RFC 1918 IP address (i.e. 172.16/12 or 192.168/16) instead
@@ -87,7 +94,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     Enable-VcXsrv-Hosts-File-Changes
 
     # Disable memory compression agent; buy more RAM instead.
-    Disable-MMAgent -mc
+    # Disable-MMAgent -mc # Ram doesn't grow on trees!
 
     # Enable Windows features for Docker/Linux/etc.
     Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName Microsoft-Hyper-V -All
@@ -102,7 +109,7 @@ else {
         Write-Host "Download and run from Github"
         Start-Process powershell.exe -Wait -Verb RunAs -ArgumentList (
             # If you're having trouble debugging because the window closes, add "-NoExit" below
-            "-NoProfile -ExecutionPolicy Bypass -Command iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/setup.ps1'))"
+            "-NoProfile -ExecutionPolicy Bypass -Command iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/petergiuntoli/computer-setup/master/bin/setup.ps1'))"
         );
     }
     else {
