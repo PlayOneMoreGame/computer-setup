@@ -117,6 +117,13 @@ else {
     # This code runs with User permissions
     ################################################
 
+    # Install "scoop" package manager
+    Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+
+    # Install github-cli tool
+    scoop bucket add github-gh "https://github.com/cli/scoop-gh.git"
+    scoop install gh
+
     # Start growl
     & "C:\Program Files (x86)\Growl for Windows\Growl.exe"
 
