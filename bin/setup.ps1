@@ -76,6 +76,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y vcxsrv
     choco install -y vscode
     choco install -y winmerge
+    choco install -y wireguard --pre
 
     # Windows Subsystem for Linux version 2 (WSL2) connects to VcXSrv
     # via a RFC 1918 IP address (i.e. 172.16/12 or 192.168/16) instead
