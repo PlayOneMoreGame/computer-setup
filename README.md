@@ -1,8 +1,13 @@
 # Computer setup
 
-This public repository contains the scripts necessary to bootstrap a computer to the point where it can download private repositories from Github that perform the rest of the computer setup process.
+This public repository contains the scripts necessary to bootstrap a computer:
 
-## New Desktop PC Setup
+- setup host: create user account / enable Administrator account / set computer name
+- install software: install git, vscode, firefox, chrome, vcxsrv, and many other tools
+- configure windows: configure computer to make Windows less crapful
+
+
+## Setup Host
 
 Our Desktop PCs come imaged with a single administrator user (`Jamie`) and need to first be configured before attempting to setup user land in the next section.
 
@@ -16,30 +21,45 @@ Our Desktop PCs come imaged with a single administrator user (`Jamie`) and need 
     ````
 1. Reboot the machine
 
-## New Windows User Setup
+
+## Install Software
 
 1. Login to Windows with the desired user
 1. Run one of the following commands
     ````cmd
-    "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/setup.ps1'))"
+    "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/software-setup.ps1'))"
     ````
 
     ````powershell
-    iwr https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/setup.ps1 -UseBasicParsing | iex
+    iwr https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/software-setup.ps1 -UseBasicParsing | iex
     ````
+
+## Configure Windows
+
+1. Login to Windows with the desired user
+1. Run the following commands
+    ````cmd
+    mkdir "%USERPROFILE%\code" 2>NUL
+    cd /d "%USERPROFILE%\code\computer-setup"
+    git clone https://github.com/PlayOneMoreGame/computer-setup.git "%USERPROFILE%\code\computer-setup"
+    "%USERPROFILE%\code\computer-setup\lib\Win10-Setup\Default.cmd"
+    ````
+
 
 ## Post-installation
 
 We recommend configuring your computer using the [PlayOneMoreGame/dotfiles](https://github.com/PlayOneMoreGame/dotfiles) repository, which configures, among other things, sane defaults for bash across Windows/WSL/Mac/Linux, and allows for running X-Windows (GUI) programs from WSL.
 
+
 ### Windows Issues
 
-If you're endeavoring to change `setup.ps1` on Github and it is not working, remember that Powershell performs web-request caching, which you'll need to disable:
+If you're endeavoring to change the powershell scripts on Github and it is not working, remember that Powershell performs web-request caching, which you'll need to disable it; for example:
 
 ````powershell
-iwr https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/setup.ps1 -UseBasicParsing -Headers @{ "Pragma"="no-cache"; "Cache-Control"="no-cache"; } | iex
+iwr https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/software-setup.ps1 -UseBasicParsing -Headers @{ "Pragma"="no-cache"; "Cache-Control"="no-cache"; } | iex
 ````
 (from https://www.reddit.com/r/PowerShell/comments/8qd9sm/invokewebrequest_pulling_stale_data_from_github/e0ialgd/)
+
 
 ### Windows Subsystem for Linux
 
