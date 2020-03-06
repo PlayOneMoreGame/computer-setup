@@ -220,7 +220,7 @@ DisableEdgeShortcutCreation     # EnableEdgeShortcutCreation	# OMG: we Chrome/Fi
 ### Server Specific Tweaks ###
 # HideServerManagerOnLogin      # ShowServerManagerOnLogin
 # DisableShutdownTracker        # EnableShutdownTracker
-# DisablePasswordPolicy         # EnablePasswordPolicy
+DisablePasswordPolicy         # EnablePasswordPolicy		# OMG: do not auto-expire password after 42 days
 # DisableCtrlAltDelLogin        # EnableCtrlAltDelLogin
 # DisableIEEnhancedSecurity     # EnableIEEnhancedSecurity
 # EnableAudio                   # DisableAudio
