@@ -73,7 +73,7 @@ DisableCortana                  # EnableCortana		# OMG: because she is annoying
 # DisableNCSIProbe              # EnableNCSIProbe
 # DisableConnectionSharing      # EnableConnectionSharing
 # DisableRemoteAssistance         # EnableRemoteAssistance
-# EnableRemoteDesktop           # DisableRemoteDesktop
+EnableRemoteDesktop           # DisableRemoteDesktop		# OMG: enable access from home via VPN
 
 ### Service Tweaks ###
 # DisableUpdateMSRT             # EnableUpdateMSRT
