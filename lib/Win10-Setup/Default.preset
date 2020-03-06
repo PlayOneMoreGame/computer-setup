@@ -230,5 +230,4 @@ DisablePasswordPolicy         # EnablePasswordPolicy		# OMG: do not auto-expire 
 # UnpinTaskbarIcons
 
 ### Auxiliary Functions ###
-WaitForKey
-Restart
+AskRestart

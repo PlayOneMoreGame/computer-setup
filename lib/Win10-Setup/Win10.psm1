@@ -3694,6 +3694,15 @@ Function WaitForKey {
 }
 
 # Restart computer
+Function AskRestart {
+	$response = Read-Host "Press r to restart, any other key to stop."
+	if ( $response -eq "r" ) {
+		Write-Output "Restarting..."
+		Restart-Computer
+	} else {
+		Write-Output "Depending upon what changed, you may need to restart your computer..."
+	}
+}
 Function Restart {
 	Write-Output "Restarting..."
 	Restart-Computer
