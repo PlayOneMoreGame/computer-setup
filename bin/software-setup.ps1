@@ -67,6 +67,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y ilspy
     choco install -y growl
     choco install -y keybase
+    choco install -y microsoft-windows-terminal
     choco install -y nircmd
     choco install -y notepad2
     choco install -y ripgrep
