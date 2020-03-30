@@ -63,7 +63,6 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y git-lfs
     choco install -y golang
     choco install -y GoogleChrome
-    choco install -y gow
     choco install -y ilspy
     choco install -y growl
     choco install -y keybase
