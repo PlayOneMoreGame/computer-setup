@@ -32,6 +32,20 @@ else
   OS=$(uname -s)
 fi
 
+tmpDir="$(mktemp -d -t nix-binary-tarball-unpack.XXXXXXXXXX ||
+  oops "Can't create temporary directory for downloading the Nix binary tarball")"
+
+cleanup() {
+  rm -rf "$tmpDir"
+}
+
+trap cleanup EXIT INT QUIT TERM
+
+require_util() {
+  command -v "$1" >/dev/null 2>&1 ||
+    oops "you do not have '$1' installed, which I need to $2"
+}
+
 function source_nix() {
   # shellcheck disable=2034
   MANPATH="" # Required to be set to a value for sourcing the profile below
@@ -44,6 +58,19 @@ function setup_debian() {
   export DEBIAN_FRONTEND=noninteractive
   sudo apt-get update
   sudo apt-get install -y curl
+
+  if is_wsl; then
+    packageDeb="$tmpDir/packages-microsoft-prod.deb"
+    wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O $packageDeb
+    sudo dpkg -i $packageDeb
+    sudo add-apt-repository universe
+    sudo apt-get update
+    sudo apt-get install apt-transport-https
+    sudo apt-get update
+    sudo apt-get install dotnet-sdk-3.1
+    sudo apt-get install aspnetcore-runtime-3.1
+    sudo apt-get install dotnet-runtime-3.1
+  fi
 }
 
 function setup_linux() {
@@ -84,18 +111,6 @@ function setup_linux() {
 }
 
 function install_nix() {
-  tmpDir="$(mktemp -d -t nix-binary-tarball-unpack.XXXXXXXXXX ||
-    oops "Can't create temporary directory for downloading the Nix binary tarball")"
-  cleanup() {
-    rm -rf "$tmpDir"
-  }
-  trap cleanup EXIT INT QUIT TERM
-
-  require_util() {
-    command -v "$1" >/dev/null 2>&1 ||
-      oops "you do not have '$1' installed, which I need to $2"
-  }
-
   case "$(uname -s).$(uname -m)" in
   Linux.x86_64)
     system=x86_64-linux
@@ -148,6 +163,14 @@ function install_nix() {
 
   [ -e "$script" ] || oops "installation script is missing from the binary tarball!"
   "$script" "$@"
+}
+
+function is_wsl() {
+  if [[ $(uname -r) =~ icrosoft ]]; then
+    return 0
+  else
+    return 1
+  fi
 }
 
 # Perform additional OS-specific setup
@@ -213,7 +236,7 @@ echo ""
 echo "Direnv will populate your shell environment and modify it's path to include"
 echo "all of the tools you will need to work with the OMG development environment."
 
-if [[ $(uname -r) =~ icrosoft ]]; then
+if is_wsl; then
   echo ""
   echo "IMPORTANT: You are running on WSL (Windows Subsytem for Linux), and so it"
   echo "may be necessary to restart your WSL session using \`wsl.exe --shutdown\`"
