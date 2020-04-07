@@ -33,8 +33,8 @@ This step will setup your Windows machine with some useful development tools to 
 
     ```batch
     mkdir "%USERPROFILE%\code" 2>NUL
-    cd /d "%USERPROFILE%\code\computer-setup"
-    git clone https://github.com/PlayOneMoreGame/computer-setup.git "%USERPROFILE%\code\computer-setup" "%USERPROFILE%\code\computer-setup\lib\Win10-Setup\Default.cmd"
+    git clone https://github.com/PlayOneMoreGame/computer-setup.git "%USERPROFILE%\code\computer-setup" 
+    "%USERPROFILE%\code\computer-setup\lib\Win10-Setup\Default.cmd"
     ```
 
 1. Subscribe to the Windows Insider Program
