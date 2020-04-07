@@ -6,7 +6,7 @@ This public repository contains the scripts necessary to bootstrap a macOS, Linu
 
 Our Windows Desktop PCs come imaged with a single administrator user and need to first be configured before attempting to setup user land in the next section. This step will create a user account, enable the Windows Administrator account, and setup the computer name.
 
-1. Perform the initial setup by running one of the following commands
+1. Perform the initial setup by running automated host setup script
 
     ```batch
     "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/win-host-setup.ps1'))"
