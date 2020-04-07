@@ -45,6 +45,14 @@ This step will setup your Windows machine with some useful development tools to 
 1. Install the [Ubuntu WSL Distribution](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
 1. Set the default WSL version number `wsl --set-default-version 2`
 1. Set the WSL version number for Ubuntu: `wsl --set-version ubuntu 2`
+1. Run the `Ubuntu` application to start WSL and create a username and password for your WSL user
+1. Run the following command to configure WSL as an OMG workstation
+
+    ```shell
+    $ curl -fsSL https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/unix-host-setup | bash
+    ```
+
+1. Follow the onscreen instructions to finish configuring your WSL installation
 
 > WSL Version 2 is [required to use the `Nix` package manager](https://github.com/NixOS/nix/issues/1203). WSL has not had an official release so we must be on the Windows Insider Program.
 
