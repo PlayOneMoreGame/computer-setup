@@ -58,6 +58,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y ag
     choco install -y ConEmu
     choco install -y Firefox
+    choco install -y forticlientvpn
     choco install -y git
     choco install -y git-credential-winstore
     choco install -y git-lfs
