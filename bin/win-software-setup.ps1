@@ -122,23 +122,16 @@ else {
     # This code runs with User permissions
     ################################################
 
-    # Install "scoop" package manager
-    Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-
-    # Install github-cli tool
-    scoop bucket add github-gh "https://github.com/cli/scoop-gh.git"
-    scoop install gh
-
-    # Start growl
-    & "C:\Program Files (x86)\Growl for Windows\Growl.exe"
-
-    # Register OMG application and message types with Growl
-    & "C:\Program Files (x86)\Growl for Windows\growlnotify.com" "/r:Debug,Info,Warn,Error,Fatal" "/a:OMG" "Register OMG"
-
     # When using git-bash we need to set the HOME directory variable
     if ($null -eq [Environment]::GetEnvironmentVariable('HOME')) {
         [Environment]::SetEnvironmentVariable('HOME', $Env:UserProfile, [EnvironmentVariableTarget]::User)
     }
+
+    # Start growl
+    & "C:\Program Files (x86)\Growl for Windows\Growl.exe"
+
+    # Register OMG application and message types with Growl; ignore errors
+    & "C:\Program Files (x86)\Growl for Windows\growlnotify.com" "/r:Debug,Info,Warn,Error,Fatal" "/a:OMG" "Register OMG" 2>&1 | Out-Null
 
     # Create user "bin" directory to store tools, and add it to the path
     $BinPath = Join-Path -Path $Env:UserProfile -ChildPath "bin"
@@ -146,4 +139,23 @@ else {
         New-Item -ItemType Directory -Force -Path $BinPath | Out-Null
     }
     Add-EnvPath -Path $binPath -Container 'User'
+
+    # Install "scoop" package manager
+    try {
+        if (Get-Command -Name "scoop") {
+            scoop update
+        }
+    } catch {
+        Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+    }
+
+    # Install github command-line tool
+    try {
+        if (Get-Command -Name "gh") {
+            scoop update gh
+        }
+    } catch {
+        scoop bucket add github-gh "https://github.com/cli/scoop-gh.git"
+        scoop install gh
+    }
 }
