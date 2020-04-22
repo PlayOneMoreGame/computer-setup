@@ -241,10 +241,11 @@ if (-Not $Shell) {
     exit 1
   }
 
-  # Download entrypoint
+  # Install Buildkite entrypoint
+  $EntrypointDst = Join-Path -Path $InstallDir -ChildPath "entrypoint"
   (New-Object System.Net.WebClient).DownloadFile("https://3xx.onemoregame.com/wsl-buildkite-setup.sh", $EntrypointDst)
 
-  # Install configuration
+  # Install Buildkite configuration
   Copy-Item $ConfigFile -Destination (Join-Path -Path $InstallDir -ChildPath "config.env")
 
   # Set version 2 of WSL
