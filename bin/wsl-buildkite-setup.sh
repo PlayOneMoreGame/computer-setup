@@ -61,8 +61,8 @@ if ! grep -q nixbld /etc/group; then
     for n in $(seq 1 10); do useradd -c "Nix build user $n" -d /var/empty -g nixbld -G nixbld -M -N -r -s "$(command -v nologin)" "nixbld$n"; done
 fi
 
-echo "Running omg system setup..."
-curl -fsSL https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/bin/unix-host-setup | bash
+echo "Running OMG host setup..."
+curl -fsSL https://3xx.onemoregame.com/unix-host-setup.sh | bash
 source "$HOME/.nix-profile/etc/profile.d/nix.sh"
 
 exec buildkite-agent start
