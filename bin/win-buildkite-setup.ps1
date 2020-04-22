@@ -241,12 +241,11 @@ if (-Not $Shell) {
     exit 1
   }
 
-  # Install entrypoint and configuration
-  $BuildWorkerDir = Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -ChildPath "scripts"
-  $EntrypointSrc = Join-Path -Path $BuildWorkerDir -ChildPath "win-buildkite-entrypoint"
-  $EntrypointDst = Join-Path -Path $InstallDir -ChildPath "entrypoint"
+  # Download entrypoint
+  (New-Object System.Net.WebClient).DownloadFile("https://3xx.onemoregame.com/wsl-buildkite-setup.sh", $EntrypointDst)
+
+  # Install configuration
   $EntrypointConfigFile = Join-Path -Path $InstallDir -ChildPath "config.env"
-  Copy-Item $EntrypointSrc -Destination $EntrypointDst
   Copy-Item $ConfigFile -Destination $EntrypointConfigFile
 
   # Set version 2 of WSL

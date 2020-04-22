@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 #
-# Installed to a Windows host by `windows-buildkite-setup.ps1` and used
-# as the entrypoint for WSL. This entrypoint updates Ubuntu and install
-# the necessary packages to run a Buildkite Agent. Finally, the script
-# execs to `buildkite-agent start` effectively turning the WSL process
-# into a buildkite-agent.
+# This entrypoint updates Ubuntu and install the necessary packages to run
+# a Buildkite Agent. Finally, the script execs to `buildkite-agent start`
+# effectively turning the WSL process into a buildkite-agent.
 #
 # The script requires a single argument of a filepath pointing to a
 # an environment configuration file with a set of keypairs to configure
@@ -13,7 +11,7 @@
 # for the keypairs can be found in 1Password.
 #
 # Usage:
-#   windows-buildkite-entrypoint /path/to/config.env
+#   wsl-buildkite-setup.sh /path/to/config.env
 #
 # shellcheck disable=SC1090
 
