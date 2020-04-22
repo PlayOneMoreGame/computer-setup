@@ -34,7 +34,6 @@ https://github.com/PlayOneMoreGame/core-infrastructure
 #
 ###############################################################################
 Param(
-  [Parameter(Position = 0)][string]$ConfigFile,
   [switch]$ResetCreds = $false,
   [switch]$NoDepends = $false,
   [switch]$WslShell = $false,
@@ -52,6 +51,7 @@ $DistroUrl = "https://aka.ms/wsl-ubuntu-1804"
 $DistroExeName = "ubuntu1804.exe"
 $InstallDir = "C:\ProgramData\OMG\buildkite"
 $Shell = $WslShell -or $HostShell
+$ConfigFile = Join-Path (Get-Location) "config.env"
 
 ###############################################################################
 #
@@ -245,8 +245,7 @@ if (-Not $Shell) {
   (New-Object System.Net.WebClient).DownloadFile("https://3xx.onemoregame.com/wsl-buildkite-setup.sh", $EntrypointDst)
 
   # Install configuration
-  $EntrypointConfigFile = Join-Path -Path $InstallDir -ChildPath "config.env"
-  Copy-Item $ConfigFile -Destination $EntrypointConfigFile
+  Copy-Item $ConfigFile -Destination (Join-Path -Path $InstallDir -ChildPath "config.env")
 
   # Set version 2 of WSL
   Write-Host "Configuring WSL"
