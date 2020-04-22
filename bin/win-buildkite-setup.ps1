@@ -243,7 +243,7 @@ if (-Not $Shell) {
 
   # Install Buildkite entrypoint
   $EntrypointDst = Join-Path -Path $InstallDir -ChildPath "entrypoint"
-  (New-Object System.Net.WebClient).DownloadFile("https://3xx.onemoregame.com/wsl-buildkite-setup.sh", $EntrypointDst)
+  (New-Object System.Net.WebClient).DownloadFile("https://3xx.onemoregame.com/wsl-buildkite-entrypoint.sh", $EntrypointDst)
 
   # Install Buildkite configuration
   Copy-Item $ConfigFile -Destination (Join-Path -Path $InstallDir -ChildPath "config.env")
