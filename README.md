@@ -64,6 +64,10 @@ Run the following command in your shell to setup a macOS or Linux host:
 $ curl -fsSL https://3xx.onemoregame.com/unix-host-setup.sh | bash
 ```
 
+## Build Worker Setup
+
+Our Windows workstations are configured as build workers to help lower build times. To configure a new host to run as an agent ensure that you've run the computer setup instructions above, and then follow the instructions in the [BUILD_WORKER README](https://github.com/PlayOneMoreGame/core-infrastructure/blob/master/BUILD_WORKERS.md).
+
 ## Post-installation (Windows)
 
 We recommend configuring your computer using the [PlayOneMoreGame/dotfiles](https://github.com/PlayOneMoreGame/dotfiles) repository, which configures, among other things, sane defaults for bash across Windows/WSL/Mac/Linux, and allows for running X-Windows (GUI) programs from WSL.
