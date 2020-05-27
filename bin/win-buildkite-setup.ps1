@@ -34,12 +34,19 @@ https://github.com/PlayOneMoreGame/core-infrastructure
 #
 ###############################################################################
 Param(
+  [switch]$NoExit = $false,
   [switch]$ResetCreds = $false,
   [switch]$NoDepends = $false,
   [switch]$WslShell = $false,
-  [switch]$HostShell = $false
+  [switch]$HostShell = $false,
+  [Parameter(Mandatory=$false)][string]$ConfigFile = "config.env"
 )
 Set-StrictMode -Version Latest
+
+if (-not [string]::IsNullOrWhiteSpace($ConfigFile)) {
+  $ConfigFile = Resolve-Path -Path $ConfigFile
+}
+
 
 ###############################################################################
 #
@@ -51,7 +58,6 @@ $DistroUrl = "https://aka.ms/wsl-ubuntu-1804"
 $DistroExeName = "ubuntu1804.exe"
 $InstallDir = "C:\ProgramData\OMG\buildkite"
 $Shell = $WslShell -or $HostShell
-$ConfigFile = Join-Path (Get-Location) "config.env"
 
 ###############################################################################
 #
@@ -114,6 +120,7 @@ $WindowsId = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 $WindowsPrincipal = new-object System.Security.Principal.WindowsPrincipal($WindowsId)
 if (-not $WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)) {
     # Yes, this awfulness seems to be the only way...
+    if ( $NoExit ) { $NoExitStr = "-NoExit"; } else { $NoExitStr = ""; }
     if ( $ResetCreds ) { $ResetCredsStr = "-ResetCreds"; } else { $ResetCredsStr = ""; }
     if ( $NoDepends ) { $NoDependsStr = "-NoDepends"; } else { $NoDependsStr = ""; }
     if ( $WslShell ) { $WslShellStr = "-Wsl"; } else { $WslShellStr = ""; }
@@ -122,7 +129,7 @@ if (-not $WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRol
     # Re-run this script with administrative permissions.
     Start-Process powershell.exe -Wait -Verb RunAs -ArgumentList (
         # If you're having trouble debugging because the window closes, add "-NoExit" to the beginning of the string below
-        "-NoProfile -ExecutionPolicy Bypass & $($MyInvocation.MyCommand.Path) $ConfigFile $ResetCredsStr $NoDependsStr $WslShellStr $HostShellStr"
+        "$NoExitStr -NoProfile -ExecutionPolicy Bypass & $($MyInvocation.MyCommand.Path) $ConfigFile $ResetCredsStr $NoDependsStr $WslShellStr $HostShellStr"
     )
     exit
 }
@@ -152,6 +159,18 @@ if (-not $Shell) {
     Write-Host "Account ${UserName} exists"
   }
 }
+
+# Shutdown service if it was already running
+## Stop-Service -Name OMG-buildkite -NoWait -Force -ErrorAction SilentlyContinue 2>&1 >$Null
+## $ServiceProcess = (Get-WmiObject win32_process | where { $_.ProcessName -eq "nssm.exe" } | select ProcessId)
+## Get-WmiObject win32_process | ForEach {
+##     if ($_.ParentProcessId -eq $ServiceProcess.ProcessId) {
+##         Stop-Process -Force -Id $_.ProcessId
+##     }
+## }
+## Stop-Process -Force -Id $ServiceProcess.ProcessId -ErrorAction SilentlyContinue
+## Stop-Service -Name OMG-buildkite -Force
+
 
 # Ensure WSL2 is installed
 if (-not $NoDepends -and -not $Shell) {
