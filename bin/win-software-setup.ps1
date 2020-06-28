@@ -97,7 +97,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName VirtualMachinePlatform
 
     # Associate "Markdown" files with VSCode to make it easy for developers to open them
-    assoc .md=VSCodeSourceFile
+    cmd.exe /c assoc .md=VSCodeSourceFile
 }
 else {
     # Re-run this script with administrative permissions. Since the script may have been
