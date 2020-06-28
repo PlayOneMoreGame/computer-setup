@@ -30,17 +30,6 @@ function Add-EnvPath {
     }
 }
 
-function Enable-VcXsrv-Hosts-File-Changes () {
-    $HostsFile = "c:\Program Files\VcXsrv\X0.hosts"
-    $acl = Get-Acl $HostsFile
-    $AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
-        [System.Security.Principal.WindowsIdentity]::GetCurrent().Name,
-        "FullControl",
-        "Allow")
-    $acl.AddAccessRule($AccessRule)
-    $acl | Set-Acl $HostsFile
-}
-
 # Elevate script to run as administrator
 $WindowsId = [System.Security.Principal.WindowsIdentity]::GetCurrent()
 $WindowsPrincipal = new-object System.Security.Principal.WindowsPrincipal($WindowsId)
@@ -74,19 +63,9 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y shellcheck
     choco install -y sysinternals
     choco install -y unity-hub
-    choco install -y vcxsrv
     choco install -y vscode
     choco install -y winmerge
     choco install -y wireguard --pre
-
-    # Windows Subsystem for Linux version 2 (WSL2) connects to VcXSrv
-    # via a RFC 1918 IP address (i.e. 172.16/12 or 192.168/16) instead
-    # of a local loopback address like WSL1, and so our script will
-    # need to overwrite the VcXSrv X0.hosts file in order to store that
-    # IP address in the file to enable connections. Grant this user
-    # permission to modify that file, which otherwise would require
-    # administrative permissions.
-    Enable-VcXsrv-Hosts-File-Changes
 
     # Disable memory compression agent; buy more RAM instead.
     Disable-MMAgent -mc
