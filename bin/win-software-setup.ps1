@@ -44,7 +44,6 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
 
     # Install required tools
     choco install -y 7zip
-    choco install -y ag
     choco install -y ConEmu
     choco install -y Firefox
     choco install -y forticlientvpn
@@ -53,17 +52,19 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y git-lfs
     choco install -y golang
     choco install -y GoogleChrome
-    choco install -y ilspy
     choco install -y growl
-    choco install -y keybase
+    choco install -y ilspy
+    choco install -y jq
+    choco install -y make
     choco install -y microsoft-windows-terminal
-    choco install -y nircmd
     choco install -y notepad2
+    choco install -y python3
     choco install -y ripgrep
     choco install -y shellcheck
     choco install -y sysinternals
     choco install -y unity-hub
     choco install -y vscode
+    choco install -y wget
     choco install -y winmerge
     choco install -y wireguard --pre
 
