@@ -29,6 +29,15 @@ This step will setup your Windows machine with some useful development tools to 
    "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://3xx.onemoregame.com/win-software-setup.ps1'))"
    ```
 
+1. Restart your command prompt
+1. Subscribe to the 'Slow Ring' of the [Windows Insider Program](https://github.com/whatever127/offlineinsiderenroll)
+
+   ```batch
+   mkdir "%USERPROFILE%\code" 2>NUL
+   git clone https://github.com/whatever127/offlineinsiderenroll.git "%USERPROFILE%\code\offlineinsiderenroll"
+   "%USERPROFILE%\code\offlineinsiderenroll\OfflineInsiderEnroll.cmd"
+   ```
+
 1. Configure Windows
 
    ```batch
@@ -37,10 +46,6 @@ This step will setup your Windows machine with some useful development tools to 
    "%USERPROFILE%\code\computer-setup\lib\Win10-Setup\Default.cmd"
    ```
 
-1. Subscribe to the Windows Insider Program
-   - With your personal Microsoft Account with the [Online Insider Enroll](https://insider.windows.com/en-us/) or
-   - In an automated way by performing an [Offline Insider Enroll](https://github.com/whatever127/offlineinsiderenroll)
-1. Set your Windows Insider update cycle to the 'Slow Ring'
 1. Run Windows Update and reboot when necessary
 1. Install the [Ubuntu WSL Distribution](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
 1. Set the default WSL version number `wsl --set-default-version 2`
