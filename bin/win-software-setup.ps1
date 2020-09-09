@@ -121,20 +121,16 @@ else {
     Add-EnvPath -Path $binPath -Container 'User'
 
     # Install "scoop" package manager
-    try {
-        if (Get-Command -Name "scoop") {
-            scoop update
-        }
-    } catch {
+    if (Get-Command -Name "scoop" -ErrorAction SilentlyContinue) {
+        scoop update
+    } else {
         Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
     }
 
     # Install github command-line tool
-    try {
-        if (Get-Command -Name "gh") {
-            scoop update gh
-        }
-    } catch {
+    if (Get-Command -Name "gh" -ErrorAction SilentlyContinue) {
+        scoop update gh
+    } else {
         scoop bucket add github-gh "https://github.com/cli/scoop-gh.git"
         scoop install gh
     }
