@@ -58,7 +58,6 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y make
     choco install -y microsoft-windows-terminal
     choco install -y notepad2
-    choco install -y python3
     choco install -y ripgrep
     choco install -y shellcheck
     choco install -y sysinternals
@@ -133,5 +132,13 @@ else {
     } else {
         scoop bucket add github-gh "https://github.com/cli/scoop-gh.git"
         scoop install gh
+    }
+
+    # Install Python
+    if (Get-Command -Name "python" -ErrorAction SilentlyContinue) {
+        scoop update python
+    }
+    else {
+        scoop install python
     }
 }
