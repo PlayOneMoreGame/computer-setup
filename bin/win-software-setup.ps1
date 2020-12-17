@@ -135,10 +135,5 @@ else {
     }
 
     # Install Python
-    if (Get-Command -Name "python" -ErrorAction SilentlyContinue) {
-        scoop update python
-    }
-    else {
-        scoop install python
-    }
+    scoop install python
 }
