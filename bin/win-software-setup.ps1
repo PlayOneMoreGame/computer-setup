@@ -65,7 +65,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y vscode
     choco install -y wget
     choco install -y winmerge
-    choco install -y wireguard --pre
+    choco install -y wireguard
 
     # Disable memory compression agent; buy more RAM instead.
     Disable-MMAgent -mc
