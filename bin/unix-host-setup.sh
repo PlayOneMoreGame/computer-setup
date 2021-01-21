@@ -9,8 +9,12 @@
 
 set -euo pipefail
 
+readonly NIX_VERSION="2.3.10"
 readonly NIXSH="$HOME/.nix-profile/etc/profile.d/nix.sh"
-readonly OMG_CONFIG_DIR="$HOME/.config/omg"
+readonly SHA_LINUX_X86_64="2ea0cd17d53b2e860ec8e17b6de578aff1b11ebaf57117714a250bfd02768834"
+readonly SHA_LINUX_I686="8f352160dad90847d5a76f36ceb6d64b9cb92a113ece62fbdf523ceda3dd08b1"
+readonly SHA_LINUX_AARCH64="cc61f06d614586350963c010d0bd939f2c9f898a813940ca61148d385982fec0"
+readonly SHA_DARWIN_X86_64="9ea2f3c0d5de42ea5646864af72fe4d7bb7379cb98f771315f0c8dc86fb6dc8d"
 OS=""
 
 if [ -f /etc/os-release ]; then
@@ -31,6 +35,11 @@ else
   # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
   OS=$(uname -s)
 fi
+
+oops() {
+  echo "$1"
+  exit 1
+}
 
 tmpDir="$(mktemp -d -t nix-binary-tarball-unpack.XXXXXXXXXX ||
   oops "Can't create temporary directory for downloading the Nix binary tarball")"
@@ -111,34 +120,35 @@ function setup_linux() {
 }
 
 function install_nix() {
-  case "$(uname -s).$(uname -m)" in
+  platform="$(uname -s).$(uname -m)"
+  case "$platform" in
   Linux.x86_64)
     system=x86_64-linux
-    hash=bd4cb069d16417ba4aadc5bb005fdb263823990352f9d37c5b763a0bd145394f
+    hash="$SHA_LINUX_X86_64"
     ;;
   Linux.i?86)
     system=i686-linux
-    hash=79776189f9b7f6b4a54faf174912a57b272ffc4f6890e17e7ccc7f7d727e4478
+    hash="$SHA_LINUX_I686"
     ;;
   Linux.aarch64)
     system=aarch64-linux
-    hash=e7bad8aae8f2e5ab101055dc14211465191d4eecf530a2a7c2721569410178fb
+    hash="$SHA_LINUX_AARCH64"
     ;;
   Darwin.x86_64)
     system=x86_64-darwin
-    hash=856cb6b62e32129c06b5ce7e3f3f22077c8fad8447cab5518c718b6f4107d8d7
+    hash="$SHA_DARWIN_X86_64"
     ;;
-  *) oops "sorry, there is no binary distribution of Nix for your platform" ;;
+  *) oops "sorry, there is no binary distribution of Nix for your platform: $platform" ;;
   esac
 
-  url="https://nixos.org/releases/nix/nix-2.3.2/nix-2.3.2-$system.tar.xz"
+  url="https://nixos.org/releases/nix/nix-$NIX_VERSION/nix-$NIX_VERSION-$system.tar.xz"
 
-  tarball="$tmpDir/$(basename "$tmpDir/nix-2.3.2-$system.tar.xz")"
+  tarball="$tmpDir/$(basename "$tmpDir/nix-$NIX_VERSION-$system.tar.xz")"
 
   require_util curl "download the binary tarball"
   require_util tar "unpack the binary tarball"
 
-  echo "downloading Nix 2.3.2 binary tarball for $system from '$url' to '$tmpDir'..."
+  echo "downloading Nix $NIX_VERSION binary tarball for $system from '$url' to '$tmpDir'..."
   curl -L "$url" -o "$tarball" || oops "failed to download '$url'"
 
   if command -v sha256sum >/dev/null 2>&1; then
@@ -203,9 +213,6 @@ if ! command git-lfs &>/dev/null; then
   echo "Installing git-lfs..."
   nix-env -i git-lfs
 fi
-
-# Setup OMG shell configuration
-mkdir -p "$OMG_CONFIG_DIR"
 
 if [ -f "$HOME/.bashrc" ]; then
   if ! grep 'eval "$(direnv hook bash)"' "$HOME/.bashrc" &>/dev/null; then
