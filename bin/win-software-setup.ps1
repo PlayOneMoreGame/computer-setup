@@ -44,16 +44,13 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
 
     # Install required tools
     choco install -y 7zip
-    choco install -y ConEmu
     choco install -y Firefox
-    choco install -y forticlientvpn
     choco install -y git
     choco install -y git-credential-winstore
     choco install -y git-lfs
     choco install -y golang
     choco install -y GoogleChrome
     choco install -y growl
-    choco install -y ilspy
     choco install -y jq
     choco install -y make
     choco install -y microsoft-windows-terminal
@@ -64,6 +61,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y unity-hub
     choco install -y vscode
     choco install -y wget
+    choco install -y windows-sdk-10.0
     choco install -y winmerge
     choco install -y wireguard
 
