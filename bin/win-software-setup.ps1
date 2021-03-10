@@ -44,6 +44,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
 
     # Install required tools
     choco install -y 7zip
+    choco install -y dotnet-5.0-sdk
     choco install -y Firefox
     choco install -y git
     choco install -y git-credential-winstore
