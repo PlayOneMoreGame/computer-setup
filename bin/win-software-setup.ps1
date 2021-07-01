@@ -43,6 +43,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
     # Install required tools
+    choco install -y 1password
     choco install -y 7zip
     choco install -y dotnet-5.0-sdk
     choco install -y Firefox
