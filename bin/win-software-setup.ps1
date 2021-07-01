@@ -45,6 +45,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     # Install required tools
     choco install -y 1password
     choco install -y 7zip
+    choco install -y discord
     choco install -y dotnet-5.0-sdk
     choco install -y Firefox
     choco install -y git
@@ -59,6 +60,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y microsoft-windows-terminal
     choco install -y notepad2
     choco install -y ripgrep
+    choco install -y slack
     choco install -y shellcheck
     choco install -y sysinternals
     choco install -y unity-hub
