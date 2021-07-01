@@ -49,6 +49,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y git
     choco install -y git-credential-winstore
     choco install -y git-lfs
+    choco install -y github-desktop
     choco install -y golang
     choco install -y GoogleChrome
     choco install -y growl
