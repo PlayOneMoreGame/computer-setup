@@ -70,6 +70,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y windows-sdk-10.0
     choco install -y winmerge
     choco install -y wireguard
+    choco install -y zoom
     
     # Add Nuget sources
     dotnet nuget add source --name nuget.org https://api.nuget.org/v3/index.json
