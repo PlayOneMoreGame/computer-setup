@@ -62,6 +62,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y ripgrep
     choco install -y slack
     choco install -y shellcheck
+    choco install -y steam
     choco install -y sysinternals
     choco install -y unity-hub
     choco install -y vscode
@@ -69,6 +70,9 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y windows-sdk-10.0
     choco install -y winmerge
     choco install -y wireguard
+    
+    # Add Nuget sources
+    dotnet nuget add source --name nuget.org https://api.nuget.org/v3/index.json
 
     # Disable memory compression agent; buy more RAM instead.
     Disable-MMAgent -mc
