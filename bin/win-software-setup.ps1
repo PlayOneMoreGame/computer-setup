@@ -135,13 +135,24 @@ else {
     }
 
     # Install github command-line tool
-    if (Get-Command -Name "gh" -ErrorAction SilentlyContinue) {
-        scoop update gh
-    } else {
+    if (scoop list gh 2>&1 | Out-Null) {
         scoop bucket add github-gh "https://github.com/cli/scoop-gh.git"
         scoop install gh
+    } else {
+        scoop update gh
     }
 
-    # Install Python
-    scoop install python
+    # Replacement for unix find
+    if (scoop list fd 2>&1 | Out-Null) {
+        scoop install fd
+    } else {
+        scoop update fd
+    }
+
+    # Python
+    if (scoop list python 2>&1 | Out-Null) {
+        scoop install python
+    } else {
+        scoop update python
+    }
 }
