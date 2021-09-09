@@ -75,6 +75,14 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     
     # Add Nuget sources
     dotnet nuget add source --name nuget.org https://api.nuget.org/v3/index.json
+    
+    # PowerShellGet requires NuGet provider version '2.8.5.201' or newer to interact
+    # with NuGet-based repositories.
+    Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+
+    # https://github.com/microsoft/unitysetup.powershell
+    Install-Module UnitySetup -Force
+    Install-UnitySetupInstance -Installers (Find-UnitySetupInstaller -Version "2020.3.16f1" -Components "Windows","Windows_IL2CPP")
 
     # Disable memory compression agent; buy more RAM instead.
     Disable-MMAgent -mc
