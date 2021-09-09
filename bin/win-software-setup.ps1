@@ -59,6 +59,7 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y make
     choco install -y microsoft-windows-terminal
     choco install -y notepad2
+    choco install -y office365business
     choco install -y ripgrep
     choco install -y slack
     choco install -y shellcheck
