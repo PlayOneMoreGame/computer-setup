@@ -71,7 +71,11 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y windows-sdk-10.0
     choco install -y winmerge
     choco install -y wireguard
+    choco install -y wsl2
+    choco install -y wsl-ubuntu-2004
     choco install -y zoom
+    
+    wsl --set-default-version 2
     
     # Add Nuget sources
     dotnet nuget add source --name nuget.org https://api.nuget.org/v3/index.json
