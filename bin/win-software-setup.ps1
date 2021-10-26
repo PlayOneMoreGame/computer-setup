@@ -54,7 +54,6 @@ if ($WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::A
     choco install -y github-desktop
     choco install -y golang
     choco install -y GoogleChrome
-    choco install -y growl
     choco install -y jq
     choco install -y make
     choco install -y microsoft-windows-terminal
@@ -126,12 +125,6 @@ else {
     if ($null -eq [Environment]::GetEnvironmentVariable('HOME')) {
         [Environment]::SetEnvironmentVariable('HOME', $Env:UserProfile, [EnvironmentVariableTarget]::User)
     }
-
-    # Start growl
-    & "C:\Program Files (x86)\Growl for Windows\Growl.exe"
-
-    # Register OMG application and message types with Growl; ignore errors
-    & "C:\Program Files (x86)\Growl for Windows\growlnotify.com" "/r:Debug,Info,Warn,Error,Fatal" "/a:OMG" "Register OMG" 2>&1 | Out-Null
 
     # Create user "bin" directory to store tools, and add it to the path
     $BinPath = Join-Path -Path $Env:UserProfile -ChildPath "bin"
