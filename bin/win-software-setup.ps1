@@ -2,7 +2,7 @@
 
 param(
     [switch]$IsDeveloper  = $false,
-    [switch]$IsProgrammer = $false
+    [switch]$IsProgrammer = $false,
     [string]$WorkingDir   = "."
 )
 
