@@ -67,5 +67,5 @@ Intune packages updated via Make can be uploaded at the following Intune endpoin
 
 intune/PS_lib.intunewin        : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/fbcf8019-96bc-4a22-8095-468762a8995b
 intune/PS_bootstrap.intunewin  : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/9687a2ba-ae27-40f0-8e4b-efee9ff14032
-intune/PS_developer.intunewin  : 
-intune/PS_programmer.intunewin : 
+intune/PS_developer.intunewin  : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/7c7a8a24-610d-4151-a45b-878d2fcdce3e
+intune/PS_programmer.intunewin : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/bb89067e-a95a-409e-9c11-3cd00accd5a0
