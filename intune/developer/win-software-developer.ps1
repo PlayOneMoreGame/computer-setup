@@ -1,25 +1,19 @@
 # powershell
 
+$ScriptDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
+. "$ScriptDir/../lib/omg.ps1"
+
 # ================================
 # Admin permissions required
 #=================================
-
-choco install -y dotnet-5.0-sdk
-choco install -y git
 choco install -y git-credential-winstore
 choco install -y git-lfs
 choco install -y github-desktop
 choco install -y microsoft-windows-terminal
 
-# Install "scoop" package manager
-if (Get-Command -Name "scoop" -ErrorAction SilentlyContinue) {
-    scoop update
-} else {
-    Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-}
-
 # Install github command-line tool
-if (scoop list gh 2>&1 | Out-Null) {
+$match = scoop info gh | Select-String -Pattern "Installed\: No"
+if ($match -ne $null) {
     scoop bucket add github-gh "https://github.com/cli/scoop-gh.git"
     scoop install gh
 } else {
@@ -27,15 +21,19 @@ if (scoop list gh 2>&1 | Out-Null) {
 }
 
 # Replacement for unix find
-if (scoop list fd 2>&1 | Out-Null) {
+$match = scoop info fd | Select-String -Pattern "Installed\: No"
+if ($match -ne $null) {
     scoop install fd
 } else {
     scoop update fd
 }
 
 # Python
-if (scoop list python 2>&1 | Out-Null) {
+$match = scoop info python | Select-String -Pattern "Installed\: No"
+if ($match -ne $null) {
     scoop install python
 } else {
     scoop update python
 }
+
+Update-Path

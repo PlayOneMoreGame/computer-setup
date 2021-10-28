@@ -1,5 +1,8 @@
 # powershell
 
+$ScriptDir = [System.IO.Path]::GetDirectoryName($myInvocation.MyCommand.Definition)
+. "$ScriptDir/../lib/omg.ps1"
+
 # ================================
 # Admin permissions required
 #=================================
@@ -11,4 +14,7 @@ Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName VirtualMachinePlat
 
 choco install -y wsl2
 choco install -y wsl-ubuntu-2004
+
+Update-Path
+
 wsl --set-default-version 2
