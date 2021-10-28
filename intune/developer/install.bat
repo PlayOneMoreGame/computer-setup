@@ -1,5 +1,5 @@
 @echo off
-set moduleDir=c:\omg\ps\developer\
+set moduleDir="%1\developer\"
 if exist "%moduleDir%" mkdir %moduleDir%
 
 xcopy /y win-software-developer.ps1 "%moduleDir%"
