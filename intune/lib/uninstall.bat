@@ -1,5 +1,5 @@
 @echo off
-set moduleDir="%1\lib\"
+set moduleDir="%~dp0\"
 
 if exist "%moduleDir%" (
     rmdir /S /Q "%moduleDir%"

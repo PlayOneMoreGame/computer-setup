@@ -1,5 +1,5 @@
 @echo off
-set moduleDir="%1\bootstrap\"
+set moduleDir="%~dp0\"
 
 if exist "%moduleDir%" (
     rmdir /S /Q "%moduleDir%"
