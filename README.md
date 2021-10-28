@@ -54,3 +54,18 @@ iwr https://3xx.onemoregame.com/win-software-setup.ps1 -UseBasicParsing -Headers
 ```
 
 (from https://www.reddit.com/r/PowerShell/comments/8qd9sm/invokewebrequest_pulling_stale_data_from_github/e0ialgd/)
+
+
+# Intune
+This collection of scripts are used within Intune packages to handle automated provisioning for @onemoregame.com AAD domain member computers. Any time we change the contents of these scripts we must re-generate the Intune packages containing them and upload the updated versions to Intune.
+
+## Rebuilding Intune packages
+Use the `make-intune-<module>` make commands to rebuild intune packages. This will create .intunewin files in the ./intune subdirectory.
+
+## URLs
+Intune packages updated via Make can be uploaded at the following Intune endpoints.
+
+intune/PS_lib.intunewin        : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/fbcf8019-96bc-4a22-8095-468762a8995b
+intune/PS_bootstrap.intunewin  : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/9687a2ba-ae27-40f0-8e4b-efee9ff14032
+intune/PS_developer.intunewin  : 
+intune/PS_programmer.intunewin : 

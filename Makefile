@@ -7,6 +7,15 @@ INTUNE_WINAPP_UTIL_PATH:=$(ROOT_DIR)/bin/IntuneWinAppUtil.exe
 .DEFAULT_GOAL := list
 .ONESHELL:
 
+###############################################################################
+#                                 Intune                                      #
+###############################################################################
+clean:
+	rm -rf $(INTUNE_DIR)/PS_lib.intunewin
+	rm -rf $(INTUNE_DIR)/PS_bootstrap.intunewin
+	rm -rf $(INTUNE_DIR)/PS_developer.intunewin
+	rm -rf $(INTUNE_DIR)/PS_programmer.intunewin
+
 INTUNE_MODULES := lib bootstrap developer programmer
 define INTUNE
 
