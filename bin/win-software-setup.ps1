@@ -21,8 +21,6 @@ function Get-Script {
     }
 }
 
-Set-ExecutionPolicy RemoteSigned
-
 if ((Test-Path $WorkingDir) -eq $false) {
     New-Item $WorkingDir -ItemType Directory
 }
