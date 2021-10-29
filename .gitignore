@@ -1,2 +1,4 @@
 # Do not check in configuration file
 config.env
+
+*.intunewin

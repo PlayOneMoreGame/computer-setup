@@ -4,15 +4,7 @@ This public repository contains the scripts necessary to bootstrap a macOS, Linu
 
 ## Setup Host (Windows)
 
-Our Windows Desktop PCs come imaged with a single administrator user and need to first be configured before attempting to setup user land in the next section. This step will create a user account, enable the Windows Administrator account, and setup the computer name.
-
-1. Perform the initial setup by running automated host setup script
-
-   ```batch
-   "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://3xx.onemoregame.com/win-host-setup.ps1'))"
-   ```
-
-1. Reboot the machine
+Our Windows Desktop PCs come imaged with Win10 Professional. Upon first login using an @onemoregame.com online account, our auto-provisioning processes should kick in and deploy the common components needed for development on OMG projects. The rest of this document
 
 ## Setup Host (macOS/Linux)
 
@@ -20,7 +12,7 @@ No additional setup required.
 
 ## Install & Configure Software (Windows)
 
-This step will setup your Windows machine with some useful development tools to get started.
+Again, this step is only necessary if auto-provisioning tools are not working or unavailable. This step will setup your Windows machine with some useful development tools to get started.
 
 1. Login to Windows with the desired user
 1. Run the software setup script
@@ -30,26 +22,8 @@ This step will setup your Windows machine with some useful development tools to 
    ```
 
 1. Restart your command prompt
-1. Subscribe to the 'Slow Ring' of the [Windows Insider Program](https://github.com/whatever127/offlineinsiderenroll)
-
-   ```batch
-   mkdir "%USERPROFILE%\code" 2>NUL
-   git clone https://github.com/whatever127/offlineinsiderenroll.git "%USERPROFILE%\code\offlineinsiderenroll"
-   "%USERPROFILE%\code\offlineinsiderenroll\OfflineInsiderEnroll.cmd"
-   ```
-
-1. Configure Windows
-
-   ```batch
-   mkdir "%USERPROFILE%\code" 2>NUL
-   git clone https://github.com/PlayOneMoreGame/computer-setup.git "%USERPROFILE%\code\computer-setup"
-   "%USERPROFILE%\code\computer-setup\lib\Win10-Setup\Default.cmd"
-   ```
 
 1. Run Windows Update and reboot when necessary
-1. Install the [Ubuntu WSL Distribution](https://www.microsoft.com/en-us/p/ubuntu/9nblggh4msv6)
-1. Set the default WSL version number `wsl --set-default-version 2`
-1. Set the WSL version number for Ubuntu: `wsl --set-version ubuntu 2`
 1. Run the `Ubuntu` application to start WSL and create a username and password for your WSL user
 1. Run the following command to configure WSL as an OMG workstation
 
@@ -59,8 +33,6 @@ This step will setup your Windows machine with some useful development tools to 
 
 1. Follow the onscreen instructions to finish configuring your WSL installation
 
-> WSL Version 2 is [required to use the `Nix` package manager](https://github.com/NixOS/nix/issues/1203). WSL has not had an official release so we must be on the Windows Insider Program.
-
 ## Install & Configure Software (macOS/Linux)
 
 Run the following command in your shell to setup a macOS or Linux host:
@@ -68,10 +40,6 @@ Run the following command in your shell to setup a macOS or Linux host:
 ```bash
 $ curl -fsSL https://3xx.onemoregame.com/unix-host-setup.sh | bash
 ```
-
-## Build Worker Setup
-
-Our Windows workstations are configured as build workers to help lower build times. To configure a new host to run as an agent ensure that you've run the computer setup instructions above, and then follow the instructions in the [BUILD_WORKER README](https://github.com/PlayOneMoreGame/core-infrastructure/blob/master/BUILD_WORKERS.md).
 
 ## Post-installation (Windows)
 
@@ -86,3 +54,18 @@ iwr https://3xx.onemoregame.com/win-software-setup.ps1 -UseBasicParsing -Headers
 ```
 
 (from https://www.reddit.com/r/PowerShell/comments/8qd9sm/invokewebrequest_pulling_stale_data_from_github/e0ialgd/)
+
+
+# Intune
+This collection of scripts are used within Intune packages to handle automated provisioning for @onemoregame.com AAD domain member computers. Any time we change the contents of these scripts we must re-generate the Intune packages containing them and upload the updated versions to Intune.
+
+## Rebuilding Intune packages
+Use the `make-intune-<module>` make commands to rebuild intune packages. This will create .intunewin files in the ./intune subdirectory.
+
+## URLs
+Intune packages updated via Make can be uploaded at the following Intune endpoints.
+
+intune/PS_lib.intunewin        : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/fbcf8019-96bc-4a22-8095-468762a8995b
+intune/PS_bootstrap.intunewin  : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/9687a2ba-ae27-40f0-8e4b-efee9ff14032
+intune/PS_developer.intunewin  : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/7c7a8a24-610d-4151-a45b-878d2fcdce3e
+intune/PS_programmer.intunewin : https://endpoint.microsoft.com/#blade/Microsoft_Intune_Apps/SettingsMenu/2/appId/bb89067e-a95a-409e-9c11-3cd00accd5a0
