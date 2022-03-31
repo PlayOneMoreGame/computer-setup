@@ -17,4 +17,6 @@ choco install -y wsl-ubuntu-2004
 
 Update-Path
 
+wsl --update
 wsl --set-default-version 2
+wsl --shutdown

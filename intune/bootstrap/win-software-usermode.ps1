@@ -38,7 +38,8 @@ dotnet nuget add source --name nuget.org https://api.nuget.org/v3/index.json
 if (Get-Command -Name "scoop" -ErrorAction SilentlyContinue) {
     scoop update
 } else {
-    Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+    iwr -useb get.scoop.sh -outfile 'install.ps1'
+    .\install.ps1 -RunAsAdmin 
 }
 
 Update-Path
