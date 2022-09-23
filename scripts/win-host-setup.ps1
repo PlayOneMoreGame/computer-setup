@@ -16,7 +16,10 @@ function Get-Script {
 
     if ((Test-Path $ScriptName) -eq $false) {
         $dir = Split-Path -Path $ScriptName
-        mkdir $dir
+
+        if ((Test-Path $dir) -eq $false) {
+            mkdir $dir
+        }
 
         $cli = New-Object System.Net.WebClient
         $cli.DownloadString("https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/$Branch/intune/$ScriptName") | Out-File $ScriptName
