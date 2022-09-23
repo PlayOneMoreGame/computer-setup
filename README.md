@@ -18,7 +18,7 @@ Again, this step is only necessary if auto-provisioning tools are not working or
 1. Run the software setup script
 
    ```batch
-   "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://3xx.onemoregame.com/win-software-setup.ps1'))"
+   "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/scripts/win-software-setup.ps1'))"
    ```
 
 1. Restart your command prompt
@@ -28,7 +28,7 @@ Again, this step is only necessary if auto-provisioning tools are not working or
 1. Run the following command to configure WSL as an OMG workstation
 
    ```shell
-   $ curl -fsSL https://3xx.onemoregame.com/unix-host-setup.sh | bash
+   $ curl -fsSL https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/scripts/unix-host-setup.sh | bash
    ```
 
 1. Follow the onscreen instructions to finish configuring your WSL installation
@@ -38,7 +38,7 @@ Again, this step is only necessary if auto-provisioning tools are not working or
 Run the following command in your shell to setup a macOS or Linux host:
 
 ```bash
-$ curl -fsSL https://3xx.onemoregame.com/unix-host-setup.sh | bash
+$ curl -fsSL https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/scripts/unix-host-setup.sh | bash
 ```
 
 ## Post-installation (Windows)
@@ -50,7 +50,7 @@ We recommend configuring your computer using the [PlayOneMoreGame/dotfiles](http
 If you're endeavoring to change the powershell scripts on Github and it is not working, remember that Powershell performs web-request caching, which you'll need to disable it; for example:
 
 ```powershell
-iwr https://3xx.onemoregame.com/win-software-setup.ps1 -UseBasicParsing -Headers @{ "Pragma"="no-cache"; "Cache-Control"="no-cache"; } | iex
+iwr https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/scripts/win-software-setup.ps1 -UseBasicParsing -Headers @{ "Pragma"="no-cache"; "Cache-Control"="no-cache"; } | iex
 ```
 
 (from https://www.reddit.com/r/PowerShell/comments/8qd9sm/invokewebrequest_pulling_stale_data_from_github/e0ialgd/)
