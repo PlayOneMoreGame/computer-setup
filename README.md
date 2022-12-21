@@ -18,7 +18,7 @@ Again, this step is only necessary if auto-provisioning tools are not working or
 1. Run the software setup script
 
    ```batch
-   "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/scripts/win-software-setup.ps1'))"
+   "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/PlayOneMoreGame/computer-setup/master/scripts/win-host-setup.ps1'))"
    ```
 
 1. Restart your command prompt
